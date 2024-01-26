@@ -1,0 +1,4 @@
+create view 'Q2 Department Employees' as
+select Department , count(*) AS 'Number Of Employees'
+from Employee
+group by Department

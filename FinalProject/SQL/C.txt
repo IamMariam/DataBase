@@ -1,0 +1,16 @@
+ -- adding a new column called salary tax
+alter table Employee add 'salary tax' numeric(3,3);
+
+-- assume for tax is only on the salaries above 400JODs
+-- tax = zero otherwize
+-- we update the recordsas follows
+
+update Employee
+set 'salary tax' = 0;
+
+update Employee
+set 'salary tax' = 0.5*salaryjod
+where salaryjod > 400;
+
+select * 
+from Employee;

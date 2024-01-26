@@ -1,0 +1,7 @@
+create view 'Q8 Average' as
+select E.id , E.fistname , E.lastname , E.salaryjod 
+from Employee as E , (select Department , AVG(salaryjod) AS AvgSalary
+                   from Employee
+                   group by Department) 
+where salaryjod > AvgSalary
+              

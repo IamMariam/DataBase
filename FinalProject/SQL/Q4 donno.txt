@@ -1,0 +1,19 @@
+SELECT
+   DISTINCT D.DepartmentCode
+    ,C.CourseNo,
+   S.secnumber,
+   M.Description AS Title
+   FROM
+    Adopt AS A
+    JOIN
+   Section AS S ON A.SecNumber = S.SecNumber
+   JOIN
+   TextbookAdoptions as ta on  ta.adoptionid = A.AdoptionID
+   join
+   MerchandiseItem AS M
+   JOIN
+   Course AS C ON A.CourseNo = C.CourseNo 
+   JOIN
+  Department AS D ON C.CDepartment = D.DepartmentCode
+  where Title in ('chemistry' , 'English' ,'LANGUAGE' )
+  

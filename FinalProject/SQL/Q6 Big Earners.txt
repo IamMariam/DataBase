@@ -1,0 +1,6 @@
+create view 'Q6 Big Earners' as
+select id , fistname , lastname
+from Employee
+where salaryjod > (select AVG(salaryjod)
+                   from Employee)
+order by lastname;

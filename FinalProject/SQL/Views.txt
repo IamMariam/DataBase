@@ -1,0 +1,37 @@
+create view Q1OuterJoin as
+select c.Description , m.description
+from MerchandiseItem AS m , Category AS c;
+
+create view 'Q2 Department Employees' as
+select Department , count(*) AS 'Number Of Employees'
+from Employee
+group by Department;
+
+
+create view 'Q3 Taxable' as
+select  vfisrtname || ' ' || vlastname AS 'Vendor Name' , stockcode , description , sellingprice
+from MerchandiseItem
+where taxable = 'True' and (author IN ( 'Irving Publishers', 'Thatcher’s Supplies',  'West Publishing'))
+order by vfisrtname;
+
+create view 'Q5 Inventory' as
+select vfisrtname || ' ' || vlastname AS Vendor ,  sum(quantity) AS 'Total Inventory' 
+from MerchandiseItem
+group by Vendor
+order by Vendor;
+
+create view 'Q6 Big Earners' as
+select id , fistname , lastname
+from Employee
+where salaryjod > (select AVG(salaryjod)
+                   from Employee)
+order by lastname;
+
+
+create view 'Q8 Average' as
+select E.id , E.fistname , E.lastname , E.salaryjod 
+from Employee as E , (select Department , AVG(salaryjod) AS AvgSalary
+                   from Employee
+                   group by Department) 
+where salaryjod > AvgSalary;
+              

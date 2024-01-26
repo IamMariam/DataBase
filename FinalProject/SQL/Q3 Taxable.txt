@@ -1,0 +1,5 @@
+create view 'Q3 Taxable' as
+select  vfisrtname || ' ' || vlastname AS 'Vendor Name' , stockcode , description , sellingprice
+from MerchandiseItem
+where taxable = 'True' and (author IN ( 'Irving Publishers', 'Thatcher’s Supplies',  'West Publishing'))
+order by vfisrtname

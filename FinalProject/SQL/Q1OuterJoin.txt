@@ -1,0 +1,3 @@
+create view Q1OuterJoin as
+select c.Description , m.description
+from MerchandiseItem AS m , Category AS c;

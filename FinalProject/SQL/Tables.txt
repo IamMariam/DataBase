@@ -1,0 +1,139 @@
+
+
+Create table Department( DepartmentCode VARCHAR(5),
+                        PRIMARY KEY(DepartmentCode));
+insert into department values ('STRG');
+insert into department values ('CAF');
+insert into department values ('LANG');
+insert into department values ('IT');
+insert into department values ('SCI');
+
+create table Employee(ID int,
+                     FistName VARCHAR(15) NOT NULL,
+                     LastName VARCHAR(15) NOT NULL,
+                     DateHired date,
+                     SalaryJOD INT,
+                     Department VARCHAR(20),
+                     PRIMARY KEY(ID),
+                     FOREIGN KEY (Department) REFERENCES Department(DepartmentCode)
+                     );
+                     
+insert into employee values (20153365,'Mira', 'Osama', '05/02/2015', 450, 'STRG');
+insert into employee values (20182253, 'Zina', 'Salem', '12/10/2018', 525, 'IT');
+insert into employee values (20204528, 'Bisan', 'Alzamel', '10/09/2020', 375, 'SCI');
+insert into employee values (20123456, 'Nasser', 'AlKhalil', '27/06/2012', 625, 'STRG');
+insert into employee values (20126543, 'Mohamad', 'Mourad', '30/03/2012', 630, 'CAF');
+
+create table Vendor(FirstName VARCHAR(15),
+                    LastName VARCHAR(15),
+                    PRIMARY KEY (FirstName,LastName)
+                    );
+insert into Vendor values ('Ahmad', 'Khaled');
+insert into Vendor values ('Issa', 'Mohammad');
+insert into Vendor values ('Lina', 'Ibrahim');
+insert into Vendor values ('Dana', 'Adam');
+insert into Vendor values ('Sajed', 'Amjad');
+                    
+                
+create table VendorPN(PhoneNumber int,
+                      FirstName VARCHAR(15),
+                      LastName VARCHAR(15),
+                      PRIMARY KEY(PhoneNumber),
+                      FOREIGN KEY (FirstName,LastName) REFERENCES Vendor(FirstName,LastName)
+                      );
+insert into VendorPN values(0795717855, 'Ahmad', 'Khaled'); 
+insert into VendorPN values(0770978988, 'Issa', 'Mohammad');
+insert into VendorPN values(0771212786, 'Issa', 'Mohammad');
+insert into VendorPN values(0781878764, 'Sajed', 'Amjad');
+insert into VendorPN values(0791233123, 'Dana', 'Adam');
+  
+  
+  
+create table Category(Abbreviation char(1),
+                      Description varchar(2),
+                      PRIMARY KEY(Description)
+                       );
+insert into Category values('B','Books');
+insert into Category values('S','Supplies');
+insert into Category values('C','Clothing');
+insert into Category values('F','Food');
+insert into Category values('E','Electronics');
+
+create table MerchandiseItem(StockCode int,
+                             SellingPrice NUMERIC(2,2),
+                             Description VARCHAR(20),
+                             Quantity int,
+                             UnitCode char(4),
+                             Author VARCHAR(30),
+                             Taxable VARCHAR(5),
+                             VFisrtName VARCHAR(15),
+                             VLastName VARCHAR(15),
+                             MCategory VARCHAR(30),
+                             PRIMARY KEY (StockCode),
+                             FOREIGN KEY (VFisrtName,VLastName) REFERENCES Vendor(FirstName,LastName),
+                             FOREIGN KEY (MCategory) REFERENCES Category(Description)
+                             );
+insert into MerchandiseItem values(700, 14.99, 'Shirt', 25, 'Each', NULL , 'False', 'Lina', 'Ibrahim', 'Clothing');
+insert into MerchandiseItem values(800, 9.95, 'English', 30, 'Each', 'Thatcher’s Supplies', 'False', 'Ahmad', 'Khaled', 'Books');
+insert into MerchandiseItem values(550, 18.50, 'Hoodie', 20, 'Each', NULL, 'False', 'Issa', 'Mohammad', 'Clothing');
+insert into MerchandiseItem values(400, 8.00, 'Headphones', 15, 'Each', NULL, 'False', 'Sajed', 'Amjad', 'Electronics');
+insert into MerchandiseItem values(150, 1.25, 'chips', 50, 'Each', NULL , 'False', 'Dana', 'Adam', 'Food');   
+insert into MerchandiseItem values(710, 14.99, 'Shirt', 25, 'Each', NULL , 'False', 'Lina', 'Ibrahim', 'Clothing');
+insert into MerchandiseItem values(300, 7.99, 'LANGUAGE', 10, 'Each', 'West Publishing' , 'True', 'Sajed', 'Amjad', 'Books');
+insert into MerchandiseItem values(810, 9.95, 'English', 6, 'Each', 'Irving Publishers', 'True', 'Ahmad', 'Khaled', 'Books');
+insert into MerchandiseItem values(200, 10.5, 'English', 13, 'Each', 'Irving Publishers', 'True', 'Ahmad', 'Khaled', 'Books');
+insert into MerchandiseItem values(560, 18.50, 'Hoodie', 20, 'Each', NULL , 'False', 'Issa', 'Mohammad', 'Clothing');
+insert into MerchandiseItem values(410, 8.00, 'Headphones', 15, 'Each', NULL , 'False', 'Sajed', 'Amjad', 'Electronics');
+insert into MerchandiseItem values(160, 1.25, 'chips', 5, 'Each', NULL , 'False', 'Dana', 'Adam', 'Food');   
+insert into MerchandiseItem values(110, 14.99, 'chemistry ', 25, 'Each', 'Thatcher’s Supplies', 'False', 'Lina', 'Ibrahim', 'Books');
+insert into MerchandiseItem values(90, 19.99, 'chemistry ', 25, 'Each', 'Thatcher’s Supplies', 'True', 'Lina', 'Ibrahim', 'Books');
+                             
+create table TextbookAdoptions(AdoptionID int,
+                               Required VARCHAR(3),
+                               PRIMARY KEY (AdoptionID)
+                               );
+insert into TextbookAdoptions values(001, 'Yes');
+insert into TextbookAdoptions values(002, 'No');
+insert into TextbookAdoptions values(003, 'No');
+insert into TextbookAdoptions values(004, 'No');
+insert into TextbookAdoptions values(005, 'Yes');
+
+create table Course(CourseNo int,
+                    CourseTitle VARCHAR(30),
+                    CDepartment VARCHAR(5),
+                    PRIMARY KEY (CourseNo),
+                    FOREIGN KEY (CDepartment) REFERENCES Department(DepartmentCode)
+                    );
+insert into Course values(201800, 'Physics', 'SCI');
+insert into Course values(201810, 'Calculus', 'SCI');
+insert into Course values(201820, 'English', 'LANG');
+insert into Course values(201830, 'Circuits', 'SCI');
+insert into Course values(201840, 'Data Structures', 'IT');
+
+
+create table Section(ProfessorName VARCHAR(30),
+                     CourseNo int,
+                     SecNumber int,
+                     FOREIGN KEY (CourseNo) REFERENCES Course(CourseNo),
+                     PRIMARY KEY (SecNumber,CourseNo)
+                     );
+insert into Section values('Mahmoud Majed',201800, 001);
+insert into Section values('Amr Loay',201840,001);
+insert into Section values('Karam Farouq',201830,001);
+insert into Section values('Taha Ahmad',201800,002);
+insert into Section values('Yousef Taiseer',201840,002);
+
+
+
+create table Adopt(SecNumber int,
+                   CourseNo int,
+                   AdoptionID int,
+                   FOREIGN KEY (SecNumber) REFERENCES Section(SecNumber),
+                   FOREIGN KEY (CourseNo) REFERENCES Section(CourseNo),
+                   FOREIGN KEY (AdoptionID) REFERENCES TextbookAdoptions(AdoptionID)
+                   );
+
+insert into Adopt values(001, 201850, 002);
+insert into Adopt values(002, 201830, 003);
+insert into Adopt values(002, 201800, 004);
+insert into Adopt values(001, 201850, 001);
